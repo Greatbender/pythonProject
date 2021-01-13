@@ -17,12 +17,6 @@ def requester(time, lat, lon):
 
     pass_times = response.json()
 
-
-    #extrakt the timeline
-    weatherlist = []
-
-
-    weatherlist=listmaker.makelist(pass_times) #call the Listmaker
-    #print(weatherlist)
-    return(weatherlist)
+    weather_value=listmaker.makelist(pass_times) #call the Listmaker to evaluate response data
+    return(weather_value)
 

@@ -17,7 +17,7 @@ if __name__ == '__main__':
     lon = str(lon)
 
     ## A SQLalchemny engine that interacts with our db
-    engine = create_engine('sqlite:///movies_db', echo=False)
+    engine = create_engine('sqlite:///Days_db', echo=False)
     ## SQLAlchemy ORM session bound to this engine
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -36,13 +36,13 @@ if __name__ == '__main__':
     day_2_t=time-(2*86400)
     day_3_t = time - (3 * 86400)
     day_4_t = time - (4 * 86400)
-    day_1_t = str(day_1_t)
+    day_1_t = str(day_1_t) #make string so its usable for API call
     day_2_t = str(day_2_t)
     day_3_t = str(day_3_t)
     day_4_t = str(day_4_t)
 
 
-    snow=(requester(day_1_t, lat, lon)) #snow yesterday
+    snow=(requester(day_1_t, lat, lon)) #snowdata yesterday
     ## Inserting records
     day_1 = Days("Day-1", snow[0], snow[1])
     #  persists data
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     #session.commit() #commit not necessary?
 
 
-    query1 = session.query(Days).all()
+    query1 = session.query(Days).all() #query of the table to give the user relevant snow Data
 
     for day in query1:
         print(f'On {day.day_number}')
@@ -82,7 +82,7 @@ if __name__ == '__main__':
         print(f'And there were {day.melting_hours} hours with melting conditions')
 
 
-    #For deleting commited tables
+    #For deleting commited tables:
     #session.query(Days).delete()
     #session.commit()
 

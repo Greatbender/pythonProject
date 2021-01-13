@@ -38,7 +38,7 @@ class listmaker:
 
         return sum_snowheight, sum_meltinghours
 
-    def counter (pass_times, element):
+    def counter (pass_times, element): #not used
         count = pass_times.count(element)
         return count
 
