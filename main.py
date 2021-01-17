@@ -5,16 +5,22 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from Database2 import Days
 
+from flask import Flask, request
+
+app = Flask(__name__, static_folder="./static", static_url_path="")
+app.debug = True
 
 
-if __name__ == '__main__':
 
-    time=datemaker.makedate() #today in unix
-    koords = UI.TinkerUI() #Get Koordinates over UI
-    lat = koords[0]
-    lon = koords[1]
-    lat = str(lat) #make strings for API call
-    lon = str(lon)
+
+@app.route('/snow', methods=['GET']) # Main API, gets lat lon and gives back the amount of snow over the last 5 days
+def snow():
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+
+
+    time=datemaker.makedate() #today in unix, necessary for API Call of external API
+
 
     ## A SQLalchemny engine that interacts with our db
     engine = create_engine('sqlite:///Days_db', echo=False)
@@ -23,7 +29,7 @@ if __name__ == '__main__':
     session = Session()
 
 
-    snow=(requester(time, lat, lon)) #Snow today
+    snow=(requester(time, lat, lon)) #Snow today from external API
 
     ## Inserting records
     day_0 = Days("Day-0", snow[0], snow[1])
@@ -69,20 +75,24 @@ if __name__ == '__main__':
     #  persists data
     session.add(day_4)
 
-
-
     #session.commit() #commit not necessary?
 
 
     query1 = session.query(Days).all() #query of the table to give the user relevant snow Data
 
+    snowheight=0 #init snowheight
     for day in query1:
         print(f'On {day.day_number}')
         print(f'The amount of fresh snow was {day.snowheight} cm')
+        diff_snowheight=float(day.snowheight)
+        snowheight=snowheight+diff_snowheight #sum of the snowheight
         print(f'And there were {day.melting_hours} hours with melting conditions')
 
 
-    #For deleting commited tables:
-    #session.query(Days).delete()
-    #session.commit()
+    # deleting commited tables:
+    session.query(Days).delete()
+    session.commit()
+    return {'dataString': 'The amount of fresh snow at your current location over the last 5 days is {snow} cm.'.format(snow=snowheight)}
 
+if __name__ == "__main__":
+    app.run()

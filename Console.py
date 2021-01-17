@@ -2,7 +2,7 @@ from tkinter import *
 
 class UI:
 
-    def TinkerUI():
+    def TinkerUI(): #use tinker ui to create ui and get user input lat and lon
 
         master = Tk()
         Label(master, text="Where do you want to go skiing?  \nLatitude").grid(row=0)

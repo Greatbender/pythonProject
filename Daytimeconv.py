@@ -14,6 +14,7 @@ class datemaker:
         timestamp = round(timestamp, 0)
         #print("timestamp =", timestamp)
         #timestamp=str(1610023799)
+        timestamp = timestamp-100 #prevent setting timestamp in the future
         timestamp = str(timestamp) # make to string
 
         split_string = timestamp.split(".", 1) #split string at .

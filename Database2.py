@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Table, Date, Boolean
 from sqlalchemy.orm import relationship, backref
 
 ## A SQLalchemny engine that interacts with our db
-engine = create_engine('sqlite:///movies_db', echo=False)
+engine = create_engine('sqlite:///Days_db', echo=False)
 ## SQLAlchemy ORM session bound to this engine
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -17,7 +17,7 @@ Base = declarative_base()
 
 
 class Days(Base):
-    __tablename__ = 'movies'
+    __tablename__ = 'Days'
 
     id = Column(Integer, primary_key=True)
     day_number = Column(String)
