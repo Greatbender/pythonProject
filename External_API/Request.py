@@ -1,6 +1,6 @@
 import requests
 
-from GetListsfromRequest import listmaker
+from External_API.GetListsfromRequest import listmaker
 
 
 

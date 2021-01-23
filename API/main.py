@@ -1,9 +1,8 @@
-from Request import requester
-from Daytimeconv import datemaker
-from Console import UI
+from External_API.Request import requester
+from API.Daytimeconv import datemaker
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Database2 import Days
+from API.Database2 import Days
 
 from flask import Flask, request
 
