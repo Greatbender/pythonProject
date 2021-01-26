@@ -8,7 +8,7 @@
 
 #API (main.py starts the App) 
 	#creats Flask APP
-	#gets the current unit time via datemaker.py 
+	#gets the current unix time via datemaker.py 
 	#creates engine an session for the DB
 	#requests via request.py the wheater data form opneweather for the last 5 days
 	#inserts the Data for every Day in a Table: ID, Day_Number, cumalative snow height, hours with melting condition
